@@ -30,7 +30,6 @@ res.encoding = "utf-8"
 soup = BeautifulSoup(res.text, 'html.parser')
 maxpage = int(soup.select("ol.pagination-parts a")[-1].text)
 
-suumo_cassetteitem_from_html = soup.select('div.cassetteitem')
 
 if res.status_code == 200:
 
@@ -49,7 +48,7 @@ if res.status_code == 200:
         res = requests.get(REQUEST_URL+"&page="+str(k))
         res.encoding = "utf-8"
         soup = BeautifulSoup(res.text, "html.parser")
-        details = soup.select("div.cassetteitem")
+        suumo_cassetteitem_from_html = soup.select('div.cassetteitem')
         time.sleep(1)
 
         for sc in suumo_cassetteitem_from_html:
@@ -65,7 +64,6 @@ if res.status_code == 200:
                 suumo_rent = ti.select('span.cassetteitem_other-emphasis, span.ui-text--bold')[0].text
                 suumo_layout = ti.select('span.cassetteitem_madori')[0].text
                 suumo_size = ti.select('span.cassetteitem_menseki')[0].text
-                
 
                 names.append(suumo_name)
                 addresses.append(suumo_address)
